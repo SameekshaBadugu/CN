@@ -1,0 +1,30 @@
+#include <stdio.h>
+int main(){
+int totalFrames, windowSize;
+int base = 0, nextFrame = 0;
+int ack;
+printf("Enter total number of frames: ");
+scanf("%d", &totalFrames);
+printf("Enter window size: ");
+scanf("%d", &windowSize);
+while (base < totalFrames){
+while (nextFrame < base + windowSize && nextFrame < totalFrames){
+printf("Sender: Sending Frame %d\n", nextFrame);
+nextFrame++;
+}
+printf("\nEnter last ACK received (-1 for ACK loss): ");
+scanf("%d", &ack);
+if (ack == -1){
+printf("\nACK Lost! Timeout occurred.\n");
+printf("Go-Back-N: Retransmitting from Frame %d\n\n", base);
+nextFrame = base;
+}
+else{
+printf("Receiver acknowledged up to Frame %d\n\n", ack);
+base = ack + 1;
+nextFrame = base;
+}
+}
+printf("All frames transmitted successfully.\n");
+return 0;
+}
