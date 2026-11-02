@@ -1,0 +1,69 @@
+#include <stdio.h>
+#include <string.h>
+void characterCount(){
+char data[100];
+printf("Enter Data: ");
+scanf("%s", data);
+printf("\nFramed Data: %lu%s\n", strlen(data), data);
+}
+void characterStuffing(){
+char data[100], start, end;
+int i;
+printf("Enter characters to be stuffed : ");
+scanf("%s", data);
+printf("Enter a character that represents starting delimiter : ");
+scanf(" %c", &start);
+printf("Enter a character that represents ending delimiter : ");
+scanf(" %c", &end);
+printf("After stuffing : %c", start);
+for(i = 0; data[i] != '\0'; i++) {
+if(data[i] == start || data[i] == end) printf("%c%c", data[i], data[i]);
+else printf("%c", data[i]);
+}
+printf("%c\n", end);
+}
+void bitStuffing() {
+char data[100];
+char delimiter[] = "01111110";
+int i, count = 0;
+printf("Enter Bit Stream: ");
+scanf("%99s", data);
+printf("\nFramed Data: %s", delimiter);
+for (i = 0; data[i] != '\0'; i++) {
+printf("%c", data[i]);
+if (data[i] == '1') {
+count++;
+if (count == 5) {
+printf("0");
+count = 0;
+}
+}
+else count = 0;
+}
+printf("%s\n", delimiter);
+}
+int main(){
+int choice;
+printf("===== Data Link Layer Framing =====\n");
+printf("1. Character Count\n");
+printf("2. Character Stuffing\n");
+printf("3. Bit Stuffing\n");
+printf("Enter your choice: ");
+scanf("%d", &choice);
+switch(choice){
+case 1:
+characterCount();
+break;
+case 2:
+characterStuffing();
+break;
+case 3:
+bitStuffing();
+break;
+default:
+printf("Invalid Choice!\n");
+}
+return 0;
+}
+
+
