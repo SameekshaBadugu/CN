@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <string.h>
+
+void crc(char data[], char gen[]) {
+    char temp[300], trans[300];
+    int n = strlen(data), m = strlen(gen);
+
+    strcpy(temp, data);
+    for (int i = 0; i < m - 1; i++) temp[n + i] = '0';
+    temp[n + m - 1] = '\0';
+
+    for (int i = 0; i < n; i++)
+        if (temp[i] == '1')
+            for (int j = 0; j < m; j++)
+                temp[i+j] = (temp[i+j] == gen[j]) ? '0' : '1';
+
+    strcpy(trans, data);
+    for (int i = 0; i < m - 1; i++)
+        trans[n+i] = temp[n+i];
+    trans[n+m-1] = '\0';
+
+    printf("\nCRC Code: %s\n", temp+n);
+    printf("Transmitted Data: %s\n", trans);
+
+    strcpy(temp, trans);
+    for (int i = 0; i <= n; i++)
+        if (temp[i] == '1')
+            for (int j = 0; j < m; j++)
+                temp[i+j] = (temp[i+j] == gen[j]) ? '0' : '1';
+
+    int error = 0;
+    for (int i = n; i < n+m-1; i++)
+        if (temp[i] != '0') error = 1;
+
+    printf("Receiver: %s\n", error ? "Error Detected!" : "Data Correct!");
+}
+
+int main() {
+    char data[200], gen[20];
+    int choice;
+
+    printf("Enter binary data: ");
+    scanf("%199s", data);
+
+    printf("\n1. CRC-12\n2. CRC-16\n3. CRC-CCITT\nEnter choice: ");
+    scanf("%d", &choice);
+
+    switch (choice) {
+        case 1: strcpy(gen, "1100000001111"); break;
+        case 2: strcpy(gen, "11000000000000101"); break;
+        case 3: strcpy(gen, "10001000000100001"); break;
+        default: printf("Invalid Choice!"); return 0;
+    }
+
+    crc(data, gen);
+    return 0;
+}
