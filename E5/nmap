@@ -1,0 +1,5 @@
+1. Verify nmap installation : nmap --version
+2. Find the system IP Address : ipconfig , ipaddr
+3. Perform basic Nmap Scan : nmap <IP_Address>
+4. Scan multiple hosts : nmap <IP_Addresses>
+5. Perform Operating system detection : sudo nmap -O <IP_Address>
