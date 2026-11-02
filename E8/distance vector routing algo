@@ -1,0 +1,105 @@
+
+#include <stdio.h>
+#define MAX 10
+int n;
+struct router{
+char adj_new[MAX], adj_old[MAX];
+int table_new[MAX], table_old[MAX];
+};
+struct router r[MAX];
+void copy(int x){
+int i;
+for(i = 0; i < n; i++){
+r[x].adj_old[i] = r[x].adj_new[i];
+r[x].table_old[i] = r[x].table_new[i];
+}}
+int equal(int x){
+int i;
+for(i = 0; i < n; i++){
+if(r[x].table_old[i] != r[x].table_new[i] ||
+r[x].adj_new[i] != r[x].adj_old[i])
+return 0;
+}
+return 1;
+}
+void input(int j){
+int i;
+printf("Enter 1 if the corresponding router is adjacent to router %c\n",(char)('A' + j));
+printf("else enter 99: ");
+for(i = 0; i < n; i++){
+if(i != j)
+printf("%c ", (char)('A' + i));
+}
+printf("\nEnter matrix: ");
+for(i = 0; i < n; i++){
+if(i == j)
+r[j].table_new[i] = 0;
+else
+scanf("%d", &r[j].table_new[i]);
+r[j].adj_new[i] = (char)('A' + i);
+}
+}
+void display(int x){
+int i;
+printf("\nDestination Router: ");
+for(i = 0; i < n; i++)
+printf("%c ", (char)('A' + i));
+printf("\nOutgoing Line: ");
+for(i = 0; i < n; i++)
+printf("%c ", r[x].adj_new[i]);
+printf("\nHop Count: ");
+for(i = 0; i < n; i++)
+printf("%d ", r[x].table_new[i]);
+printf("\n");
+}
+void build(int j){
+int i, k;
+for(i = 0; i < n; i++){
+for(k = 0; (i != j) && (k < n); k++){
+if(r[j].table_old[i] != 99){
+if((r[j].table_new[i] + r[i].table_new[k])< r[j].table_new[k]){
+r[j].table_new[k] = r[j].table_new[i] + r[i].table_new[k];
+r[j].adj_new[k] = (char)('A' + i);
+}}}}}
+void build_table(){
+int i = 0, j = 0;
+while(i != n){
+for(i = j; i < n; i++){
+copy(i);
+build(i);
+}
+for(i = 0; i < n; i++){
+if(!equal(i)){
+j = i;
+break;
+}}}}
+int main(){
+int i, j;
+printf("Enter the number of routers: ");
+scanf("%d", &n);
+for(i = 0; i < n; i++){
+for(j = 0; j < MAX; j++){
+r[i].table_new[j] = 99;
+r[i].table_old[j] = 99;
+r[i].adj_new[j] = (char)('A' + j);
+r[i].adj_old[j] = (char)('A' + j);
+}}
+for(i = 0; i < n; i++) input(i);
+build_table();
+for(i = 0; i < n; i++){
+printf("\nRouter Table entries for router %c\n",
+(char)('A' + i));
+display(i);
+}
+return 0;
+}
+
+
+i/p:
+5
+1 1 99 99
+1 99 99 99
+1 99 1 1
+99 99 1 99
+ 99 99 1 99
+  
