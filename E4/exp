@@ -1,0 +1,56 @@
+Wireshark is a network protocol analyzer used to capture and inspect network traffic.
+
+1. Packet capture using wireshark
+   i) Open wireshark
+   ii) Select the active network interface (Wi-Fi/Ethernet).
+   iii) Click start capturing packets icon.
+   iv) Capture the network packets for few seconds.
+   v) Generate network traffic by opening a website or using the ping command.(Ping command - ping www.google.com)
+   If ping command not found - sudo apt update , sudo apt install iputils-ping
+   vi) We get an ip address from google.com. Type the ip address in the filter pane (ip.addr == <IP Address> in wireshark and click enter.
+   vii) Observe the captured packets.
+   viii) Click the Stop button to stop capturing.
+   ix) Save the captured packets using File → Save As.
+2. Starting Wireshark
+   i) Install Wireshark on the system.
+   ii) Open Wireshark from the Start menu.
+   iii) The main screen displays available network interfaces.
+   iv) Select an interface such as Wi-Fi or Ethernet.
+   v) Double-click the interface to start capturing packets.
+   vi) Click the red Stop button to stop the capture.
+3. Viewing captured traffic
+   i) There are 3 sections in wireshark - Packet List, Packet Details, Packet Bytes.
+   ii) Important packet fields : 
+       No.: Packet number.
+       Time: Time at which the packet was captured.
+       Source: IP address of the sender.
+       Destination: IP address of the receiver.
+       Protocol: Protocol used, such as TCP, UDP, or ICMP.
+       Length: Size of the packet.
+       Info: Additional packet information.
+   iii) Observe the captured packets in the Packet List pane.
+   iv) Click a packet to view its details.
+   v) Examine the Packet Details and Packet Bytes panes.
+   vi) Double-click a packet to open it in a new window for detailed analysis.
+4. Analysis, Statistics and Filters
+   i) For analysing captured traffic, wireshark provides statistical tools.
+   ii) Statistics option	              Purpose
+       Protocol Hierarchy	              Displays protocols present in the captured traffic.
+       Conversations	                  Shows communication between two endpoints.
+       Endpoints	                      Lists unique IP and MAC addresses.
+       I/O Graphs                     	Displays network traffic over time.
+       Flow Graph	                      Shows the flow of packets between devices.
+       Capture File Properties	        Displays information about the capture file.
+    iii) Filters
+        Filter	                    Meaning
+        icmp	                     Capture and Display ICMP packets.
+        tcp	                       Capture and Display TCP packets.
+        udp	                       Capture and Display UDP packets.
+        dns	                       Capture and Display DNS packets.
+        http	                     Capture and Display HTTP packets.
+        port 80	                   Capture packets using port 80.
+        host 192.168.1.1	         Capture packets to or from the specified host.
+        ip.addr == 192.168.1.1	   Display packets to or from the IP address.
+        tcp.port == 80	           Display TCP packets using port 80.
+        ip.src == 192.168.1.1	     Display packets from the specified source IP.
+        ip.dst == 192.168.1.1	     Display packets to the specified destination IP.
